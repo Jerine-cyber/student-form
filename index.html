@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Details Task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6">
+
+    <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold text-center mb-4">STUDENT FORM</h2>
+        <form id="studentForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium">Name</label>
+                <input type="text" id="name" required class="w-full border rounded px-3 py-2">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium">Age</label>
+                <input type="number" id="age" required class="w-full border rounded px-3 py-2">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Gender</label>
+                <label class="mr-4">
+                    <input type="radio" name="gender" value="Male" required class="mr-1"> Male
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="Female" class="mr-1"> Female
+                </label>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium">Course</label>
+                <select id="course" class="w-full border rounded px-3 py-2">
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="PYTHON">PYTHON</option>
+                    <option value="HTML">HTML</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium">E-mail</label>
+                <input type="email" id="email" required class="w-full border rounded px-3 py-2">
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="max-w-5xl mx-auto overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded shadow-md">
+            <thead class="bg-gray-200 text-gray-700">
+                <tr>
+                    <th class="px-4 py-2 border">NAME</th>
+                    <th class="px-4 py-2 border">AGE</th>
+                    <th class="px-4 py-2 border">COURSE</th>
+                    <th class="px-4 py-2 border">GENDER</th>
+                    <th class="px-4 py-2 border">EMAIL</th>
+                    <th class="px-4 py-2 border">ACTION</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody">
+                <!-- Student rows added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const form = document.getElementById('studentForm');
+        const tableBody = document.getElementById('studentTableBody');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const course = document.getElementById('course').value;
+            const email = document.getElementById('email').value;
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+        <td class="border px-4 py-2 text-center">${name}</td>
+        <td class="border px-4 py-2 text-center">${age}</td>
+        <td class="border px-4 py-2 text-center">${course}</td>
+        <td class="border px-4 py-2 text-center">${gender}</td>
+        <td class="border px-4 py-2 text-center">${email}</td>
+        <td class="border px-4 py-2 text-center">
+          <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 delete-btn">Delete</button>
+        </td>
+      `;
+
+            tableBody.appendChild(row);
+            form.reset();
+        });
+
+        tableBody.addEventListener('click', function (event) {
+            if (event.target.classList.contains('delete-btn')) {
+                event.target.closest('tr').remove();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
